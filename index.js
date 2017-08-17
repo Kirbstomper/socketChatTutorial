@@ -8,9 +8,13 @@ app.get('/', function(req,res){
 });
 
 io.on('connection',function(socket){
+    io.emit('chat message', "User Connected");
     socket.on('chat message',function(msg){
         io.emit('chat message', msg)
     });
+    socket.on('disconnect',function(){
+        io.emit('chat message', "user Disconected")
+    });   
 });
 
 http.listen(8080, function(){
